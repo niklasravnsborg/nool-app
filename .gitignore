@@ -1,0 +1,13 @@
+npm-debug.log*
+ionic.project
+.io-config.json
+
+.tmp/
+dist/
+node_modules/
+tmp/
+temp/
+hooks/
+platforms/
+plugins/
+www/

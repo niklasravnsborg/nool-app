@@ -1,0 +1,28 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Herzlich Willkommen</ion-title>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content>
+	<p padding-horizontal padding-top>
+		Moin! Das ist die Beta von Projekt Nool.<br>
+		Melde Dich mit den Daten an, die Du bekommen hast.
+	</p>
+	<form margin-right>
+		<ion-item>
+			<ion-label stacked>Email</ion-label>
+			<ion-input type="email" name="email" [(ngModel)]="user.email"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label stacked>Passwort</ion-label>
+			<ion-input type="password" name="password" [(ngModel)]="user.password"></ion-input>
+		</ion-item>
+
+		<div padding>
+			<button ion-button (click)="login(l)">Anmelden</button>
+		</div>
+	</form>
+</ion-content>

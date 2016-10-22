@@ -1,0 +1,15 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Alle Kurse</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list>
+		<ion-item no-padding *ngFor="let item of messages | async">
+			<h2>{{ item.course }}</h2>
+			<h3>{{ item.teacher }}</h3>
+			<div *ngIf="item.type == 'canceled'">Ausfall</div>
+		</ion-item>
+	</ion-list>
+</ion-content>
