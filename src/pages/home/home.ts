@@ -1,23 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { AngularFire, FirebaseAuth, FirebaseListObservable } from 'angularfire2';
 import { NavController, AlertController } from 'ionic-angular';
+import { LoginPage } from '../login/login';
 
 @Component({
 	selector: 'page-home',
 	templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
 	messages: FirebaseListObservable<any>;
 
-	constructor(public navCtrl: NavController, public af: AngularFire, public auth: FirebaseAuth, private alertCtrl: AlertController) {}
+	constructor(public nav: NavController, public af: AngularFire, public auth: FirebaseAuth, private alertCtrl: AlertController) {}
 
 	ngOnInit() {
-		this.auth.subscribe((data) => {
-			if (data) {
-				this.messages = this.af.database.list('/messages');
-			}
-		})
+		this.messages = this.af.database.list('/messages');
+	}
+
+	logout() {
+		this.messages = null;
+		this.auth.logout();
 	}
 
 }

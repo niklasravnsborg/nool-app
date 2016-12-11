@@ -5,6 +5,7 @@ import { StatusBar } from 'ionic-native';
 import * as firebase from 'firebase';
 import {AngularFire} from 'angularfire2';
 
+import { BlankPage } from '../pages/blank/blank';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 
@@ -12,7 +13,7 @@ import { LoginPage } from '../pages/login/login';
 	template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-	rootPage = LoginPage;
+	rootPage = BlankPage;
 
 	constructor(platform: Platform) {
 		platform.ready().then(() => {
