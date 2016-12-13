@@ -1,17 +1,33 @@
 <ion-header>
 	<ion-navbar>
-		<ion-title>Alle Kurse</ion-title>
+		<ion-title>Alle Ausfälle</ion-title>
 	</ion-navbar>
+	<ion-segment [(ngModel)]="date">
+		<ion-segment-button value="today">
+			Heute {{ todayDate | date: 'dd.MM.yyyy' }}
+		</ion-segment-button>
+		<ion-segment-button value="nextDay">
+			Morgen {{ tomorrowDate | date: 'dd.MM.yyyy' }}
+		</ion-segment-button>
+	</ion-segment>
 </ion-header>
 
 <ion-content>
-	<ion-list>
-		<ion-item no-padding *ngFor="let item of messages | async">
-			<h2>{{ item.course }}</h2>
-			<h3>{{ item.teacher }}</h3>
-			<div *ngIf="item.type == 'canceled'">Ausfall</div>
-		</ion-item>
-	</ion-list>
+	<div [ngSwitch]="date">
+		<ion-list *ngSwitchCase="'today'">
+			<ion-item no-padding *ngFor="let item of messagesToday">
+				<h2>{{ item.course }}</h2>
+				<h3 *ngIf="item.type == 'canceled'">{{ item.lesson }}. Stunde fällt aus</h3>
+			</ion-item>
+		</ion-list>
+
+		<ion-list *ngSwitchCase="'nextDay'">
+			<ion-item no-padding *ngFor="let item of messagesTomorrow">
+				<h2>{{ item.course }}</h2>
+				<h3 *ngIf="item.type == 'canceled'">{{ item.lesson }}. Stunde fällt aus</h3>
+			</ion-item>
+		</ion-list>
+	</div>
 
 	<div padding>
 		<button ion-button color="light" (click)="logout()">Logout</button>
