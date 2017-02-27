@@ -11,14 +11,13 @@ export class HomePage implements OnInit {
 
 	date = 'today';
 	today = new Date();
+	courses = [];
 	messagesToday = [];
 	messagesTomorrow = [];
 	todayDate    = new Date();
 	tomorrowDate = new Date();
 	todayDateString    = '';
 	tomorrowDateString = '';
-	messages: FirebaseListObservable<any>;
-
 
 	constructor(public nav: NavController, public af: AngularFire, public auth: FirebaseAuth, private alertCtrl: AlertController) {
 
@@ -29,29 +28,40 @@ export class HomePage implements OnInit {
 	}
 
 	ngOnInit() {
-		this.messages = this.af.database.list('/messages');
-		this.messages.subscribe(messages => {
 
-			this.messagesToday = [];
-			this.messagesTomorrow = [];
+		this.af.database.object(`/courses`).subscribe(courses => {
+			this.courses = courses;
+		});
 
+		this.af.database.list('/messages', { preserveSnapshot: true }).subscribe(messages => {
 			for (let message of messages) {
 
-				var messageDateString  = new Date(message.date).toLocaleDateString();
+				var object = message.val(),
+				    teacher = '';
+
+				if (this.courses[object.course]) {
+					teacher = this.courses[object.course]['teacher'];
+				}
+
+				object['$key'] = message.key;
+				object['teacher'] = teacher;
+
+				var messageDateString = new Date(object.date).toLocaleDateString();
 
 				if (messageDateString == this.todayDateString) {
-					this.messagesToday.push(message);
+					this.messagesToday.push(object);
 				} else if (messageDateString == this.tomorrowDateString) {
-					this.messagesTomorrow.push(message);
+					this.messagesTomorrow.push(object);
 				}
 
 			}
+
+			console.log(this.messagesTomorrow);
 
 		});
 	}
 
 	logout() {
-		this.messages = null;
 		this.auth.logout();
 	}
 
