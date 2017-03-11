@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { AngularFire, FirebaseAuth, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { NavController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 
@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
 	todayDateString    = '';
 	tomorrowDateString = '';
 
-	constructor(public nav: NavController, public af: AngularFire, public auth: FirebaseAuth, private alertCtrl: AlertController) {
+	constructor(public nav: NavController, public af: AngularFire, private alertCtrl: AlertController) {
 
 		this.tomorrowDate.setDate(this.todayDate.getDate() + 1);
 		this.todayDateString    = this.todayDate.toLocaleDateString();
@@ -62,7 +62,7 @@ export class HomePage implements OnInit {
 	}
 
 	logout() {
-		this.auth.logout();
+		this.af.auth.logout();
 	}
 
 }

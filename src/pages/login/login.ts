@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController } from 'ionic-angular';
-import { FirebaseAuth, AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import { HomePage } from '../home/home';
 
 @Component({
@@ -12,12 +12,12 @@ export class LoginPage {
 	loader: any;
 	user = {email: '', password: ''};
 
-	constructor(public nav: NavController, public auth: FirebaseAuth, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {}
+	constructor(public af: AngularFire, public nav: NavController, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {}
 
 	public login() {
 		this.showLoading()
 
-		this.auth.login(this.user, {
+		this.af.auth.login(this.user, {
 			provider: AuthProviders.Password,
 			method: AuthMethods.Password
 		}).then((authData) => {

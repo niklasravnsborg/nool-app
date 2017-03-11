@@ -1,15 +1,17 @@
 <ion-header>
 	<ion-navbar>
-		<ion-title>Alle Ausfälle</ion-title>
+		<ion-title>Pushboard</ion-title>
 	</ion-navbar>
-	<ion-segment [(ngModel)]="date">
-		<ion-segment-button value="today">
-			Heute {{ todayDate | date: 'dd.MM.yyyy' }}
-		</ion-segment-button>
-		<ion-segment-button value="nextDay">
-			Morgen {{ tomorrowDate | date: 'dd.MM.yyyy' }}
-		</ion-segment-button>
-	</ion-segment>
+	<ion-toolbar no-border-top>
+		<ion-segment [(ngModel)]="date">
+			<ion-segment-button value="today">
+				Heute {{ todayDate | date: 'dd.MM.yyyy' }}
+			</ion-segment-button>
+			<ion-segment-button value="nextDay">
+				Morgen {{ tomorrowDate | date: 'dd.MM.yyyy' }}
+			</ion-segment-button>
+		</ion-segment>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>

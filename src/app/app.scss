@@ -15,12 +15,33 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-.toolbar-background {
+.toolbar-md {
+	min-height: 0;
+	padding: 0;
+}
+
+.toolbar-background-md {
 	background-color: color($colors, primary);
 }
 
-.toolbar-title {
+.toolbar-title-md {
+	padding: 16px;
 	color: color($colors, light);
+}
+
+.segment-md .segment-button {
+	color: color($colors, light);
+	border-bottom-color: color($colors, light);
+	&.segment-activated {
+		border-color: color($colors, light);
+	}
+}
+
+.segment-ios {
+	padding: 16px;
+	.segment-button {
+		max-width: none;
+	}
 }
 
 .list-md > .item-block:first-child, .list-md > .item-wrapper:first-child .item-block,
