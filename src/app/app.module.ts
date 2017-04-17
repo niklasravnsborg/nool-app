@@ -7,6 +7,7 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { SubscriptionsPage } from '../pages/subscriptions/subscriptions';
 
 export const firebaseConfig = {
 	apiKey: "AIzaSyB6BmmDaCCC0UEWQ_yqfvojXIeOFOxM3J0",
@@ -20,7 +21,8 @@ export const firebaseConfig = {
 	declarations: [
 		MyApp,
 		HomePage,
-		LoginPage
+		LoginPage,
+		SubscriptionsPage
 	],
 	imports: [
 		IonicModule.forRoot(MyApp),
@@ -30,7 +32,8 @@ export const firebaseConfig = {
 	entryComponents: [
 		MyApp,
 		HomePage,
-		LoginPage
+		LoginPage,
+		SubscriptionsPage
 	],
 	providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

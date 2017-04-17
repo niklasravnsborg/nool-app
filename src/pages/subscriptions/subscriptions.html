@@ -1,0 +1,41 @@
+<!--
+Generated template for the Subscriptions page.
+
+See http://ionicframework.com/docs/v2/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Meine Kurse</ion-title>
+		<ion-buttons end>
+			<button ion-button (click)="logout()">
+				Logout
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<ion-list>
+		<ion-item padding-horizontal *ngFor="let item of courses | async">
+
+			<h2>Kurs {{ item.$key }}</h2>
+			<p>{{ item.teacher }}</p>
+
+			<ng-container item-right *ngIf="subscriptionsList[item.$key] !== true">
+				<button class="subscribe-button" ion-button small (click)="subscribe(item.$key)">Abonnieren</button>
+			</ng-container>
+
+			<ng-container item-right *ngIf="subscriptionsList[item.$key] === true">
+				<button class="subscribe-button" ion-button small icon-left color="secondary" outline (click)="unsubscribe(item.$key)">
+					<ion-icon name="checkmark"></ion-icon>
+					Abonniert
+				</button>
+			</ng-container>
+
+		</ion-item>
+	</ion-list>
+</ion-content>

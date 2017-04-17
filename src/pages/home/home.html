@@ -1,8 +1,13 @@
 <ion-header>
 	<ion-navbar>
 		<ion-title>Pushboard</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only (click)="openSettings()">
+				<ion-icon name="settings"></ion-icon>
+			</button>
+		</ion-buttons>
 	</ion-navbar>
-	<ion-toolbar no-border-top>
+	<ion-toolbar class="switch-toolbar" no-border-top>
 		<ion-segment [(ngModel)]="date">
 			<ion-segment-button value="today">
 				Heute {{ todayDate | date: 'dd.MM.yyyy' }}
@@ -18,34 +23,34 @@
 	<div [ngSwitch]="date">
 		<ion-list *ngSwitchCase="'today'">
 			<ion-item no-padding *ngFor="let item of messagesToday">
-				<div padding-horizontal>
-					<h2>
-						{{ item.course }}
-						<ion-badge item-right>{{ item.teacher }}</ion-badge>
-					</h2>
-					<h3 *ngIf="item.type == 'canceled'">
-						{{ item.lesson }}. Stunde fällt aus
-					</h3>
-				</div>
+				<ng-container *ngIf="subscriptions[item.course] === true">
+					<div padding-horizontal>
+						<h2>
+							{{ item.course }}
+							<ion-badge item-right>{{ item.teacher }}</ion-badge>
+						</h2>
+						<h3 *ngIf="item.type == 'canceled'">
+							{{ item.lesson }}. Stunde fällt aus
+						</h3>
+					</div>
+				</ng-container>
 			</ion-item>
 		</ion-list>
 
 		<ion-list *ngSwitchCase="'nextDay'">
 			<ion-item no-padding *ngFor="let item of messagesTomorrow">
-				<div padding-horizontal>
-					<h2>
-						{{ item.course }}
-						<ion-badge item-right>{{ item.teacher }}</ion-badge>
-					</h2>
-					<h3 *ngIf="item.type == 'canceled'">
-						{{ item.lesson }}. Stunde fällt aus
-					</h3>
-				</div>
+				<ng-container *ngIf="subscriptions[item.course] === true">
+					<div padding-horizontal>
+						<h2>
+							{{ item.course }}
+							<ion-badge item-right>{{ item.teacher }}</ion-badge>
+						</h2>
+						<h3 *ngIf="item.type == 'canceled'">
+							{{ item.lesson }}. Stunde fällt aus
+						</h3>
+					</div>
+				</ng-container>
 			</ion-item>
 		</ion-list>
-	</div>
-
-	<div padding>
-		<button ion-button color="light" (click)="logout()">Logout</button>
 	</div>
 </ion-content>

@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { NavController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
+import { SubscriptionsPage } from '../subscriptions/subscriptions';
 
 @Component({
 	selector: 'page-home',
@@ -12,6 +13,8 @@ export class HomePage implements OnInit {
 	date = 'today';
 	today = new Date();
 	courses = [];
+	authId = '';
+	subscriptions = [];
 	messagesToday = [];
 	messagesTomorrow = [];
 	todayDate    = new Date();
@@ -28,6 +31,13 @@ export class HomePage implements OnInit {
 	}
 
 	ngOnInit() {
+		this.af.auth.subscribe(auth => {
+			this.authId = auth.uid;
+		});
+
+		this.af.database.object(`/users/${this.authId}/subscriptions`).subscribe(subscriptions => {
+			this.subscriptions = subscriptions;
+		});
 
 		this.af.database.object(`/courses`).subscribe(courses => {
 			this.courses = courses;
@@ -61,8 +71,8 @@ export class HomePage implements OnInit {
 		});
 	}
 
-	logout() {
-		this.af.auth.logout();
+	openSettings() {
+		this.nav.push(SubscriptionsPage);
 	}
 
 }

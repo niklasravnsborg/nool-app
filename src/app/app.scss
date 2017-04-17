@@ -15,9 +15,31 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-.toolbar-md {
+.subscribe-button {
+	&.button-ios {
+		min-width: 100px;
+	}
+	&.button-md {
+		min-width: 120px;
+	}
+}
+
+.switch-toolbar.toolbar-md {
 	min-height: 0;
 	padding: 0;
+}
+
+.toolbar-md {
+	padding: 16px;
+}
+
+.back-button-md {
+	min-width: 0;
+	margin-left: 0;
+}
+
+.bar-buttons-md[end] {
+	margin-right: 0;
 }
 
 .toolbar-background-md {
@@ -25,8 +47,12 @@
 }
 
 .toolbar-title-md {
-	padding: 16px;
+	padding: 0;
 	color: color($colors, light);
+}
+
+.bar-button-default-md {
+	color: white;
 }
 
 .segment-md .segment-button {
@@ -42,6 +68,14 @@
 	.segment-button {
 		max-width: none;
 	}
+}
+
+.bar-button-default-ios {
+	color: #8e9398;
+}
+
+.back-button-ios {
+	color: color($colors, primary);
 }
 
 .list-md > .item-block:first-child, .list-md > .item-wrapper:first-child .item-block,
