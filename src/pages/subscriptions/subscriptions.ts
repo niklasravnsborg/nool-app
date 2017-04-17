@@ -14,22 +14,29 @@ export class SubscriptionsPage {
 	subscriptionsList = [];
 	courses: FirebaseListObservable<any>;
 	subscriptions: FirebaseObjectObservable<any>;
+	authConnection;
+	subscriptionsConnection;
 
 	constructor(public nav: NavController, public af: AngularFire) {}
 
 	ngOnInit() {
 		console.log('init');
-		this.af.auth.subscribe(auth => {
+		this.authConnection = this.af.auth.subscribe(auth => {
 			this.authId = auth.uid;
 		});
 
 		this.subscriptions = this.af.database.object(`/users/${this.authId}/subscriptions`, { preserveSnapshot: true });
 
-		this.subscriptions.subscribe(list => {
+		this.subscriptionsConnection = this.subscriptions.subscribe(list => {
 			this.subscriptionsList = list.val();
 		});
 
 		this.courses = this.af.database.list(`/courses`);
+	}
+
+	ionViewWillUnload() {
+		this.authConnection.unsubscribe();
+		this.subscriptionsConnection.unsubscribe();
 	}
 
 	subscribe(course) {

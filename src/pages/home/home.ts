@@ -21,6 +21,10 @@ export class HomePage implements OnInit {
 	tomorrowDate = new Date();
 	todayDateString    = '';
 	tomorrowDateString = '';
+	authConnection;
+	subscriptionsConnection;
+	coursesConnection;
+	messagesConnection;
 
 	constructor(public nav: NavController, public af: AngularFire, private alertCtrl: AlertController) {
 
@@ -31,19 +35,19 @@ export class HomePage implements OnInit {
 	}
 
 	ngOnInit() {
-		this.af.auth.subscribe(auth => {
+		this.authConnection = this.af.auth.subscribe(auth => {
 			this.authId = auth.uid;
 		});
 
-		this.af.database.object(`/users/${this.authId}/subscriptions`).subscribe(subscriptions => {
+		this.subscriptionsConnection = this.af.database.object(`/users/${this.authId}/subscriptions`).subscribe(subscriptions => {
 			this.subscriptions = subscriptions;
 		});
 
-		this.af.database.object(`/courses`).subscribe(courses => {
+		this.coursesConnection = this.af.database.object(`/courses`).subscribe(courses => {
 			this.courses = courses;
 		});
 
-		this.af.database.list('/messages', { preserveSnapshot: true }).subscribe(messages => {
+		this.messagesConnection = this.af.database.list('/messages', { preserveSnapshot: true }).subscribe(messages => {
 			for (let message of messages) {
 
 				var object = message.val(),
@@ -69,6 +73,13 @@ export class HomePage implements OnInit {
 			console.log(this.messagesTomorrow);
 
 		});
+	}
+
+	ionViewWillUnload() {
+		this.authConnection.unsubscribe();
+		this.subscriptionsConnection.unsubscribe();
+		this.coursesConnection.unsubscribe();
+		this.messagesConnection.unsubscribe();
 	}
 
 	openSettings() {
