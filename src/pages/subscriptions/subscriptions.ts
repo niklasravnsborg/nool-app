@@ -20,7 +20,6 @@ export class SubscriptionsPage {
 	constructor(public nav: NavController, public af: AngularFire) {}
 
 	ngOnInit() {
-		console.log('init');
 		this.authConnection = this.af.auth.subscribe(auth => {
 			this.authId = auth.uid;
 		});
@@ -28,7 +27,9 @@ export class SubscriptionsPage {
 		this.subscriptions = this.af.database.object(`/users/${this.authId}/subscriptions`, { preserveSnapshot: true });
 
 		this.subscriptionsConnection = this.subscriptions.subscribe(list => {
-			this.subscriptionsList = list.val();
+			if (list.val()) {
+				this.subscriptionsList = list.val();
+			}
 		});
 
 		this.courses = this.af.database.list(`/courses`);
